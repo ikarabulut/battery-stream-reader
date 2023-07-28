@@ -1,5 +1,6 @@
 package com.ikarabulut.smartbatterystreamer;
 
+import com.ikarabulut.smartbatterystreamer.resources.BatteryStreamResource;
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Bootstrap;
 import io.dropwizard.core.setup.Environment;
@@ -23,7 +24,8 @@ public class SmartBatteryStreamerApplication extends Application<SmartBatteryStr
     @Override
     public void run(final SmartBatteryStreamerConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
+        final BatteryStreamResource resource = new BatteryStreamResource();
+        environment.jersey().register(resource);
     }
 
 }
