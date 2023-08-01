@@ -1,4 +1,4 @@
-package com.ikarabulut.smartbatterystreamer;
+package com.ikarabulut.smartbatterystreamer.api;
 
 import com.ikarabulut.smartbatterystreamer.resources.BatteryStreamResource;
 import io.dropwizard.core.Application;

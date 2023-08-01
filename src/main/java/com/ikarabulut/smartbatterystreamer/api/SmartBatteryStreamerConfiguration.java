@@ -1,4 +1,4 @@
-package com.ikarabulut.smartbatterystreamer;
+package com.ikarabulut.smartbatterystreamer.api;
 
 import io.dropwizard.core.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,24 +1,31 @@
 package com.ikarabulut.smartbatterystreamer.resources;
 
-import com.ikarabulut.smartbatterystreamer.db.BatteryEvent;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import com.smartbatterystreamer.avro.BatteryEvent;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriBuilder;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.time.Instant;
 
-@Path("/event")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+import static jakarta.ws.rs.core.MediaType.APPLICATION_OCTET_STREAM;
+import static org.apache.commons.compress.utils.IOUtils.toByteArray;
+
+@Path("/")
 public class BatteryStreamResource {
-
     @POST
-    public Response add(@NotNull @Valid BatteryEvent event) {
-        return Response
-                .status(Response.Status.CREATED)
-                .entity(event)
-                .build();
+    @Path("/event/{uuid}")
+    @Consumes({APPLICATION_OCTET_STREAM, APPLICATION_JSON})
+    @Produces(APPLICATION_JSON)
+    public Response send(@PathParam("uuid") String uuid, @Context HttpServletRequest request)
+            throws IOException {
+        ByteBuffer body = ByteBuffer.wrap(toByteArray(request.getInputStream()));
+        BatteryEvent payload = new BatteryEvent(uuid, Instant.now().toEpochMilli(), body);
+
+        return Response.ok().entity(payload).build();
     }
 }
+

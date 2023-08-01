@@ -1,0 +1,18 @@
+{"namespace": "com.smartbatterystreamer.avro",
+  "type": "record",
+  "name": "BatteryEvent",
+  "fields": [
+    {
+      "name": "uuid",
+      "type": "string"
+    },
+    {
+      "name": "arrival_time_ms",
+      "type": ["long", "null"]
+    },
+    {
+      "name": "body",
+      "type": ["bytes", "null"]
+    }
+  ]
+}

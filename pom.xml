@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>4.0.1</dropwizard.version>
-        <mainClass>com.ikarabulut.smartbatterystreamer.SmartBatteryStreamerApplication</mainClass>
+        <mainClass>com.ikarabulut.smartbatterystreamer.api.SmartBatteryStreamerApplication</mainClass>
     </properties>
 
     <dependencyManagement>
@@ -73,34 +73,22 @@
             <artifactId>avro</artifactId>
             <version>1.11.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-avro</artifactId>
+            <version>2.13.0</version>
+        </dependency>
     </dependencies>
 
     <build>
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.avro</groupId>
-                    <artifactId>avro-maven-plugin</artifactId>
-                    <version>1.11.1</version>
-                    <executions>
-                        <execution>
-                            <phase>generate-sources</phase>
-                            <goals>
-                                <goal>schema</goal>
-                            </goals>
-                            <configuration>
-                                <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
-                                <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>1.11</source>
+                        <target>1.11</target>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -224,6 +212,23 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <version>1.11.1</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
+                            <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
