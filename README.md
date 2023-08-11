@@ -21,3 +21,4 @@ This project utilized `docker-compose` to run Kafka, Zookeeper, Postgres, and Co
 3. Run `docker-compose up` to run the docker container
 4. Run `java -jar target/smart-battery-streamer-1.0-SNAPSHOT.jar server config.yml` this will run the dropwizard server on port 8080 and use the config.yml file located in the root dir
 5. Run the event generator application following the instructions from the link above
+6. Run the Streams application `java -cp target/smart-battery-streamer-1.0-SNAPSHOT.jar com.ikarabulut.smartbatterystreamer.stream.DeviceStateStream stream stream.yml`
