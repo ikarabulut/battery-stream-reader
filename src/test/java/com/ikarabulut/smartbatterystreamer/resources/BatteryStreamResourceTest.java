@@ -8,10 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
 class BatteryStreamResourceTest {
-    private static final ResourceExtension EXT = ResourceExtension      .builder()
-            .addResource(new BatteryStreamResource())
-            .build();
-
     @Test
     void add() {
     }
