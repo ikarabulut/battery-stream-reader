@@ -1,6 +1,7 @@
 package com.ikarabulut.smartbatterystreamer.resources;
 
 import com.google.common.collect.ImmutableMap;
+import com.ikarabulut.smartbatterystreamer.api.DeviceDAO;
 import com.smartbatterystreamer.avro.BatteryEvent;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.*;
@@ -25,9 +26,14 @@ import static org.apache.commons.compress.utils.IOUtils.toByteArray;
 public class BatteryStreamResource {
     protected final KafkaProducer producer;
     protected final String topic;
-    public BatteryStreamResource(KafkaProducer producer, String topic) {
+    protected final DeviceDAO dao;
+    protected final String table;
+
+    public BatteryStreamResource(KafkaProducer producer, String topic, DeviceDAO dao, String table) {
         this.producer = producer;
         this.topic = topic;
+        this.dao = dao;
+        this.table = table;
     }
 
     @POST

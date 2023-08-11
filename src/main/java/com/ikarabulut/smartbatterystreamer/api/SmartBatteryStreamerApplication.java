@@ -5,9 +5,11 @@ import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Bootstrap;
 import io.dropwizard.core.setup.Environment;
+import io.dropwizard.jdbi3.JdbiFactory;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.jdbi.v3.core.Jdbi;
 
 import java.util.Properties;
 
@@ -30,9 +32,12 @@ public class SmartBatteryStreamerApplication extends Application<SmartBatteryStr
     @Override
     public void run(final SmartBatteryStreamerConfiguration configuration,
                     final Environment environment) {
+        final JdbiFactory factory = new JdbiFactory();
+        final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "device-db");
+
         var producer = createProducer(configuration);
         environment.lifecycle().manage(new CloseableManaged(producer));
-        final BatteryStreamResource resource = new BatteryStreamResource(producer, configuration.getTopic());
+        final BatteryStreamResource resource = new BatteryStreamResource(producer, configuration.getTopic(), jdbi.onDemand(DeviceDAO.class), configuration.getDeviceTable());
         environment.jersey().register(resource);
     }
 
