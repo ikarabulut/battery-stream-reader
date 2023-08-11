@@ -6,7 +6,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - 22181:2181
+      - 2181:2181
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -44,3 +44,5 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - '5432:5432'
+    volumes:
+      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
