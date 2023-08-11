@@ -30,8 +30,8 @@ public class SmartBatteryStreamerApplication extends Application<SmartBatteryStr
     @Override
     public void run(final SmartBatteryStreamerConfiguration configuration,
                     final Environment environment) {
-
-        final BatteryStreamResource resource = new BatteryStreamResource();
+        var producer = createProducer(configuration);
+        final BatteryStreamResource resource = new BatteryStreamResource(producer, configuration.getTopic());
         environment.jersey().register(resource);
     }
 

@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
+import org.apache.kafka.clients.producer.KafkaProducer;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -16,6 +17,13 @@ import static org.apache.commons.compress.utils.IOUtils.toByteArray;
 
 @Path("/")
 public class BatteryStreamResource {
+    protected final KafkaProducer producer;
+    protected final String topic;
+    public BatteryStreamResource(KafkaProducer producer, String topic) {
+        this.producer = producer;
+        this.topic = topic;
+    }
+
     @POST
     @Path("/event/{uuid}")
     @Consumes({APPLICATION_OCTET_STREAM, APPLICATION_JSON})
