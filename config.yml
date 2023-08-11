@@ -1,3 +1,4 @@
+
 kafka:
   bootstrap.servers: "localhost:29092"
   schema.registry.url: "http://localhost:8090"
@@ -8,5 +9,5 @@ deviceTable: "devices"
 database:
   driverClass: org.postgresql.Driver
   user: postgres
-  password: secret
+  password: postgres
   url: "jdbc:postgresql://0.0.0.0:5432/postgres"
