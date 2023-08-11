@@ -31,6 +31,7 @@ public class SmartBatteryStreamerApplication extends Application<SmartBatteryStr
     public void run(final SmartBatteryStreamerConfiguration configuration,
                     final Environment environment) {
         var producer = createProducer(configuration);
+        environment.lifecycle().manage(new CloseableManaged(producer));
         final BatteryStreamResource resource = new BatteryStreamResource(producer, configuration.getTopic());
         environment.jersey().register(resource);
     }
