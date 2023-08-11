@@ -13,3 +13,11 @@ This project is designed to build a system from these first principles: We will 
 - Provide real-time, geo-based information on the fleet
 - Handle out-of-order events
 - Build multiuse APIs for real-time IoT insights
+
+## Run Locally
+This project utilized `docker-compose` to run Kafka, Zookeeper, Postgres, and Confluent Schema registry. For a sample event generator please see https://github.com/jyates/manning-energy-resources/tree/master/event-generators and follow the instructions to get this project on your machine as well.
+1. Once the project is cloned navigate to the root directory
+2. Run `mvn clean package`
+3. Run `docker-compose up` to run the docker container
+4. Run `java -jar target/smart-battery-streamer-1.0-SNAPSHOT.jar server config.yml` this will run the dropwizard server on port 8080 and use the config.yml file located in the root dir
+5. Run the event generator application following the instructions from the link above
